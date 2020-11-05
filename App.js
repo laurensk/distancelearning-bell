@@ -1,4 +1,11 @@
+"use strict";
+
+var player = require('play-sound');
+var schedule = require('node-schedule');
+
+const soundFileName = 'bell.mp3'
 const times = [
+    '10:13',
     '08:00',
     '08:50',
     '09:40',
@@ -15,19 +22,41 @@ const times = [
 ];
 
 (function main() {
+    logStart();
     registerScheduleHandler();
 })();
 
 function registerScheduleHandler() {
     times.forEach((time) => {
+        const hour = time.split(':')[0];
+        const minute = time.split(':')[1];
 
+        schedule.scheduleJob({ hour: hour, minute: minute, dayOfWeek: [0, 1, 2, 3, 4, 5, 6] }, function () {
+            playBell(time);
+        });
+    });
+    logInit();
+}
+
+function playBell(time) {
+    logPlayed(soundFileName, time);
+    player().play(soundFileName, function (err) {
+        if (err) return logError(soundFileName, time);
     });
 }
 
-function playBell() {
-
+function logStart() {
+    console.log('Starting DistanceLearning-Bell...')
 }
 
-function timeToCron(time) {
-    return cronTime
+function logInit() {
+    console.log('DistanceLearning-Bell started successfully...');
+}
+
+function logPlayed(soundFileName, time) {
+    console.log(time + ': Playing sound file \'' + soundFileName + '\'');
+}
+
+function logError(soundFileName, time) {
+    console.error(time + ': Failed to play sound file \'' + soundFileName + '\'');
 }
