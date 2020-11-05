@@ -5,7 +5,6 @@ var schedule = require('node-schedule');
 
 const soundFileName = 'bell.mp3'
 const times = [
-    '10:13',
     '08:00',
     '08:50',
     '09:40',
