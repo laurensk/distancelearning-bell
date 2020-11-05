@@ -3,7 +3,7 @@
 var player = require('play-sound');
 var schedule = require('node-schedule');
 
-const soundFileName = 'bell.mp3'
+const soundFileName = 'bell.mp3';
 const times = [
     '08:00',
     '08:50',
